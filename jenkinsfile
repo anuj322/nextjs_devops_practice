@@ -1,0 +1,28 @@
+pipeline {
+    agent {label "server1"}
+
+    stages {
+        stage('fetching code') {
+            steps {
+                echo 'trying to fetching the code'
+                git url: "https://github.com/anuj322/nextjs_devops_practice.git", branch: "main"
+                echo 'code fetched successful '
+            }
+        }
+        stage('try to build the code') {
+            steps {
+                echo 'building the code'
+                sh 'docker build -t anujp4061/nextjspractice .'
+                echo 'docker image is ready !!! '
+            }
+        }
+        stage('deploying the code/ project') {
+            steps {
+                echo 'trying to deploy the code'
+                sh 'docker compose up -d'
+                echo 'container is successfully started'
+            }
+        }
+    }
+}
+    
