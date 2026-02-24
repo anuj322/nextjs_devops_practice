@@ -5,11 +5,14 @@ phases:
     runtime-versions:
       nodejs: 20
     commands:
+      - echo "Installing dependencies..."
       - npm ci
+
   pre_build:
     commands:
       - echo "Linting..."
-      - npx next lint 
+      - npm run lint
+
   build:
     commands:
       - echo "Building..."
