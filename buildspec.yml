@@ -1,0 +1,28 @@
+version: 0.2
+
+env:
+  variables:
+    NODE_ENV: "production"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20  # Use the version matching your local environment
+    commands:
+      - echo "Installing dependencies..."
+      - npm ci    # 'npm ci' is faster and better for CI/CD than 'npm install'
+
+  pre_build:
+    commands:
+      - echo "Checking version and linting..."
+      - node -v
+      - npm run lint # Optional: stops the build if there are linting errors
+
+  build:
+    commands:
+      - echo "Building Next.js application..."
+      - npm run build
+
+  post_build:
+    commands:
+      - echo "Build completed on `date`"
